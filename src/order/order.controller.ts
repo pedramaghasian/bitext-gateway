@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post, Req } from '@nestjs/common';
 import { OrderService } from './order.service';
 
 
@@ -7,7 +7,8 @@ export class OrderController {
   constructor(private readonly orderSvc: OrderService) {}
 
   @Post()
-  createOrder(@Body() data) {
-    return this.orderSvc.createOrder(data);
+  createOrder(@Req() req, @Body() data) {
+    const requestId = req.headers['requestId'];
+    return this.orderSvc.createOrder(data, requestId);
   }
 }
