@@ -3,14 +3,18 @@ import {
     IsString, IsNotEmpty,
 } from 'class-validator';
 
-export class CreateOrderDto {
-
-    @ApiProperty({ required: false })
-    @IsString()
-    id?: string;
+export class UpdateOrderDto {
 
     @ApiProperty()
     @IsString()
     @IsNotEmpty()
     name: string;
+}
+
+export class UpdateOrderParamDto {
+
+    @ApiProperty()
+    @IsString()
+    @IsNotEmpty()
+    orderId: string;
 }
