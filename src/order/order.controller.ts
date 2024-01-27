@@ -17,9 +17,11 @@ export class OrderController {
   }
 
   @Put('/:orderId')
-  updateOrder(@Req() req, @Body() data: UpdateOrderDto, @Param() orderId: UpdateOrderParamDto) {
+  updateOrder(@Req() req, @Body() data: UpdateOrderDto, @Param() param: UpdateOrderParamDto) {
     const requestId = req.headers['requestId'];
-    return this.orderSvc.updateOrder({ ...data, id: orderId }, requestId);
+    const { orderId } = param
+
+    return this.orderSvc.updateOrder({ ...data, id: orderId.toString() }, requestId);
   }
 
   @Get()
