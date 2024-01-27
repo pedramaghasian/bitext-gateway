@@ -9,7 +9,7 @@ export class OrderService implements OnModuleInit, OnModuleDestroy {
   ) { }
 
   async onModuleInit() {
-    ['commands.createOrder'].forEach((key) => this.client.subscribeToResponseOf(`${key}`));
+    ['commands.createOrder','queryies.getOrders'].forEach((key) => this.client.subscribeToResponseOf(`${key}`));
     await this.client.connect();
   }
 
@@ -30,4 +30,18 @@ export class OrderService implements OnModuleInit, OnModuleDestroy {
       JSON.stringify(payload),
     );
   }
+
+  async getOrders(requestId) {
+    const topic = 'queryies.getOrders'
+    const payload = {
+      headers: {
+        correlationId: requestId,
+      },
+    };
+    return this.client.send(
+      topic,
+      JSON.stringify(payload),
+    );
+  }
+
 }

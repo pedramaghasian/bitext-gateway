@@ -14,4 +14,10 @@ export class OrderController {
     const requestId = req.headers['requestId'];
     return this.orderSvc.createOrder(data, requestId);
   }
+
+  @Get()
+  getOrders(@Req() req) {
+    const requestId = req.headers['requestId'];
+    return this.orderSvc.getOrders(requestId);
+  }
 }
