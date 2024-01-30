@@ -4,28 +4,35 @@ import { ApiTags } from '@nestjs/swagger';
 import { CreateOrderDto } from './dtos/create-order.dto';
 import { UpdateOrderDto, UpdateOrderParamDto } from './dtos/update-order.dto';
 
-
-@ApiTags('Orders')
 @Controller('/api/v1/order')
+@ApiTags('Orders')
 export class OrderController {
-  constructor(private readonly orderSvc: OrderService) { }
+  constructor(private readonly orderSvc: OrderService) {}
 
   @Post()
-  createOrder(@Req() req, @Body() data: CreateOrderDto) {
+  createOrder(@Req() req: any, @Body() data: CreateOrderDto) {
     const requestId = req.headers['requestId'];
+
     return this.orderSvc.createOrder(data, requestId);
   }
 
   @Put('/:orderId')
-  updateOrder(@Req() req, @Body() data: UpdateOrderDto, @Param() param: UpdateOrderParamDto) {
+  updateOrder(
+    @Req() req: any,
+    @Body() data: UpdateOrderDto,
+    @Param() param: UpdateOrderParamDto,
+  ) {
     const requestId = req.headers['requestId'];
-    const { orderId } = param
+    const { orderId } = param;
 
-    return this.orderSvc.updateOrder({ ...data, id: orderId.toString() }, requestId);
+    return this.orderSvc.updateOrder(
+      { ...data, id: orderId.toString() },
+      requestId,
+    );
   }
 
   @Get()
-  getOrders(@Req() req) {
+  getOrders(@Req() req: any) {
     const requestId = req.headers['requestId'];
     return this.orderSvc.getOrders(requestId);
   }

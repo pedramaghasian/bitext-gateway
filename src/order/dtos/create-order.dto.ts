@@ -1,16 +1,14 @@
 import { ApiProperty } from '@nestjs/swagger';
-import {
-    IsString, IsNotEmpty,
-} from 'class-validator';
+import { IsString, IsNotEmpty, IsBoolean } from 'class-validator';
 
 export class CreateOrderDto {
+  @ApiProperty()
+  @IsString()
+  @IsNotEmpty()
+  name: string;
 
-    @ApiProperty({ required: false })
-    @IsString()
-    id?: string;
-
-    @ApiProperty()
-    @IsString()
-    @IsNotEmpty()
-    name: string;
+  @ApiProperty()
+  @IsBoolean()
+  @IsNotEmpty()
+  isPaid: boolean;
 }
